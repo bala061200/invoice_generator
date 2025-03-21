@@ -46,13 +46,21 @@ export default function PdfUpload(props) {
 
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', alignItems: 'center', gap: '10px' }}>
 
-        <button style={{
-          display: 'flex', borderRadius: "5px", backgroundColor: 'transparent', border: "1px solid grey", justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: 'auto',
-          paddingLeft: '8px',
-          paddingRight: '8px',
-          paddingTop: '3px',
-          paddingBottom: '3px'
-        }}>
+        <button
+          onClick={handleUploadClick}
+          style={{
+            display: 'flex',
+            borderRadius: "5px",
+            backgroundColor: 'transparent',
+            border: "1px solid grey",
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center', width: 'auto',
+            paddingLeft: '8px',
+            paddingRight: '8px',
+            paddingTop: '3px',
+            paddingBottom: '3px'
+          }}>
           Upload File
           <LiaUploadSolid size={25} />
         </button>

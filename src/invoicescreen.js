@@ -18,29 +18,10 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Invoice() {
 
   const location = useLocation();
-  const invoiceType = location.state?.type || "new"; // Default value if not provided
-
+  const invoiceType = location.state?.type || "new";
   const navigate = useNavigate();
-
-  const [selectedVendorOption, setSelectedVendorOption] = useState("");
-  const [selectedPONumber, setSelectedPONumber] = useState("")
   const [uploadedData, setUploadedData] = useState(null);
-  const [selectedInvoiceNumber, setSelectedInvoiceNumber] = useState("");
-  const [selectedPaymentTerms, setSelectedPaymentTerms] = useState("");
-  const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [selectedAccount, setSelectedAccount] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("");
   const [activeSection, setActiveSection] = useState("Vendor Details");
-  const [invoiceDate, setInvoiceDate] = useState("");
-  const [invoiceDueDate, setInvoiceDueDate] = useState("");
-  const [glPostDate, setGLPostDate] = useState("");
-  const [invoiceDescription, setInvoiceDescription] = useState("");
-  const [description, setDescription] = useState("");
-  const [lineAmount, setLineAmount] = useState();
-  const [totalAmount, setTotalAmount] = useState();
-  const [comments, setComments] = useState('');
-
-
 
   const vendorOptions = [
     { value: "vendor1", label: "Vendor 1" },
@@ -54,43 +35,35 @@ export default function Invoice() {
     { value: "PO789", label: "PO789" },
   ];
 
-  // Invoice Number Dropdown
   const invoiceNumberOptions = [
     { value: "INV1001", label: "INV1001" },
     { value: "INV1002", label: "INV1002" },
     { value: "INV1003", label: "INV1003" },
   ];
 
-  // Payment Terms Dropdown
   const paymentTermsOptions = [
     { value: "Net 30", label: "Net 30" },
     { value: "Net 60", label: "Net 60" },
     { value: "Net 90", label: "Net 90" },
   ];
 
-  // Department Dropdown
   const departmentOptions = [
     { value: "HR", label: "HR" },
     { value: "Finance", label: "Finance" },
     { value: "IT", label: "IT" },
   ];
 
-  // Account Dropdown
   const accountOptions = [
     { value: "Account1", label: "Account 1" },
     { value: "Account2", label: "Account 2" },
     { value: "Account3", label: "Account 3" },
   ];
 
-  // Location Dropdown
   const locationOptions = [
     { value: "New York", label: "New York" },
     { value: "Los Angeles", label: "Los Angeles" },
     { value: "Chicago", label: "Chicago" },
   ];
-
-
-
 
   const vendorRef = useRef(null);
   const invoiceRef = useRef(null);
@@ -104,146 +77,17 @@ export default function Invoice() {
   };
 
   const handleSelectedFileData = (e) => {
-    const file = e.name; // Get the selected file
+    const file = e.name;
 
     if (file) {
       console.log("Selected file:", file);
-      setUploadedData(file); // Store the file object in state
+      setUploadedData(file);
     } else {
       console.log("No file selected.");
     }
   };
 
 
-
-  // useEffect(() => {
-  //   navigate("/invoice", { replace: true, state: {} });
-  //   if ((uploadedData) || (invoiceType === 'default')) {
-  //     const today = new Date();
-  //     let invoicedate = today.toISOString().split("T")[0]
-  //     let invoiceduedate = new Date(today.setDate(today.getDate() + 5)).toISOString().split("T")[0]
-  //     let glpostdate = new Date(today.setDate(today.getDate() - 4)).toISOString().split("T")[0]
-  //     let invoicedes = 'Invoice Details Description'
-  //     let expensedes = 'Expense Details Description'
-  //     let lineamount = 10
-  //     let totalamount = 100;
-
-  //     if (vendorOptions.length > 0) setSelectedVendorOption(vendorOptions[0]);
-  //     if (poNumberOptions.length > 0) setSelectedPONumber(poNumberOptions[0]);
-  //     if (invoiceNumberOptions.length > 0) setSelectedInvoiceNumber(invoiceNumberOptions[0]);
-  //     if (paymentTermsOptions.length > 0) setSelectedPaymentTerms(paymentTermsOptions[0]);
-  //     if (departmentOptions.length > 0) setSelectedDepartment(departmentOptions[0]);
-  //     if (accountOptions.length > 0) setSelectedAccount(accountOptions[0]);
-  //     if (locationOptions.length > 0) setSelectedLocation(locationOptions[0]);
-  //     setInvoiceDate(invoicedate); 
-  //     setInvoiceDueDate(invoiceduedate); 
-  //     setGLPostDate(glpostdate); 
-  //     setInvoiceDescription(invoicedes)
-  //     setDescription(expensedes)
-  //     setLineAmount(lineamount)
-  //     setTotalAmount(totalamount)
-
-  //     localStorage.setItem("vendor", JSON.stringify(vendorOptions[0]));
-  //     localStorage.setItem("ponumber", JSON.stringify(poNumberOptions[0]));
-  //     localStorage.setItem("invoicenumberoption", JSON.stringify(invoiceNumberOptions[0]));
-  //     localStorage.setItem("paymenttermsoption", JSON.stringify(paymentTermsOptions[0]));
-  //     localStorage.setItem("department", JSON.stringify(departmentOptions[0]));
-  //     localStorage.setItem("account", JSON.stringify(accountOptions[0]));
-  //     localStorage.setItem("location", JSON.stringify(locationOptions[0]));
-  //     localStorage.setItem("invoicedate", invoicedate);
-  //     localStorage.setItem("invoiceduedate", invoiceduedate);
-  //     localStorage.setItem("glpostdate", glpostdate);
-  //     localStorage.setItem("invoicedes", invoicedes);
-  //     localStorage.setItem("expensedes", expensedes);
-  //     localStorage.setItem("lineamount", lineamount);
-  //     localStorage.setItem("totalamount", totalamount);
-  //   } else {
-  //     let vendoroption = localStorage.getItem("vendor");
-  //     let ponumberoption = localStorage.getItem("ponumber");
-  //     let invoicenumberoption = localStorage.getItem("invoicenumberoption");
-  //     let paymenttermsoption = localStorage.getItem("paymenttermsoption");
-  //     let departmentoption = localStorage.getItem("department");
-  //     let accountoption = localStorage.getItem("account");
-  //     let locationoption = localStorage.getItem("location");
-  //     let invoicedate = localStorage.getItem("invoicedate");
-  //     let invoiceduedate = localStorage.getItem("invoiceduedate");
-  //     let glpostdate = localStorage.getItem("glpostdate");
-  //     let invoicedes = localStorage.getItem("invoicedes");
-  //     let expensedes = localStorage.getItem("expensedes");
-  //     let lineamount = localStorage.getItem("lineamount");
-  //     let totalamount = localStorage.getItem("totalamount");
-  //     let commentsadded = localStorage.getItem("comment");
-
-  //     setInvoiceDate(invoicedate); // Today
-  //     setInvoiceDueDate(invoiceduedate); // +5 days
-  //     setGLPostDate(glpostdate); // +1 day from original today
-  //     setInvoiceDescription(invoicedes)
-  //     setDescription(expensedes)
-  //     setLineAmount(lineamount)
-  //     setTotalAmount(totalamount)
-  //     setSelectedVendorOption(JSON.parse(vendoroption));
-  //     setSelectedPONumber(JSON.parse(ponumberoption));
-  //     setSelectedInvoiceNumber(JSON.parse(invoicenumberoption));
-  //     setSelectedPaymentTerms(JSON.parse(paymenttermsoption));
-  //     setSelectedDepartment(JSON.parse(departmentoption));
-  //     setSelectedAccount(JSON.parse(accountoption));
-  //     setSelectedLocation(JSON.parse(locationoption));
-  //     setComments(commentsadded)
-  //   }
-  // }, [uploadedData, invoiceType]);
-
-
-  const handleOptions = (e, type, setFieldValue) => {
-    if (type === 'vendor') {
-      setSelectedVendorOption(e)
-    } else if (type === 'ponumber') {
-      setSelectedPONumber(e)
-    } else if (type === 'invoicenumber') {
-      setSelectedInvoiceNumber(e)
-    } else if (type === 'paymentterms') {
-      setSelectedPaymentTerms(e)
-    } else if (type === 'department') {
-      setSelectedDepartment(e)
-    } else if (type === 'account') {
-      setSelectedAccount(e)
-    } else if (type === 'location') {
-      setSelectedLocation(e)
-    }
-    setFieldValue(type, e);
-    localStorage.setItem(type, JSON.stringify(e))
-  }
-
-
-  const handleDates = (e, type, setFieldValue) => {
-    if (type === "invoicedate") {
-      setInvoiceDate(e)
-    } else if (type === "invoiceduedate") {
-      setInvoiceDueDate(e)
-    } else if (type === "glpostdate") {
-      setGLPostDate(e)
-    }
-    setFieldValue(type, e);
-    localStorage.setItem(type, e)
-  }
-
-  const handleinput = (e, type, setFieldValue) => {
-    if (type === 'totalamount') {
-      setTotalAmount(e.target.value)
-    } else if (type === 'invoicedes') {
-      setInvoiceDescription(e.target.value)
-
-    } else if (type === 'lineamount') {
-      setLineAmount(e.target.value)
-
-    } else if (type === 'expensedes') {
-      setDescription(e.target.value)
-
-    } else if (type === 'comment') {
-      setComments(e.target.value)
-    }
-    setFieldValue(type, e.target.value);
-    localStorage.setItem(type, e.target.value)
-  }
 
   const handlegoback = () => {
     localStorage.clear()
@@ -273,13 +117,13 @@ export default function Invoice() {
       let totalamount = 100;
 
       setDefaultValues({
-        vendor: vendorOptions.length > 0 ? vendorOptions[0].value : "",
-        poNumber: poNumberOptions.length > 0 ? poNumberOptions[0].value : "",
-        invoiceNumber: invoiceNumberOptions.length > 0 ? invoiceNumberOptions[0].value : "",
-        paymentTerms: paymentTermsOptions.length > 0 ? paymentTermsOptions[0].value : "",
-        department: departmentOptions.length > 0 ? departmentOptions[0].value : "",
-        account: accountOptions.length > 0 ? accountOptions[0].value : "",
-        location: locationOptions.length > 0 ? locationOptions[0].value : "",
+        vendor: vendorOptions.length > 0 ? vendorOptions[0] : "",
+        poNumber: poNumberOptions.length > 0 ? poNumberOptions[0] : "",
+        invoiceNumber: invoiceNumberOptions.length > 0 ? invoiceNumberOptions[0] : "",
+        paymentTerms: paymentTermsOptions.length > 0 ? paymentTermsOptions[0] : "",
+        department: departmentOptions.length > 0 ? departmentOptions[0] : "",
+        account: accountOptions.length > 0 ? accountOptions[0] : "",
+        location: locationOptions.length > 0 ? locationOptions[0] : "",
         invoiceDate: invoicedate,
         invoiceDueDate: invoiceduedate,
         glPostDate: glpostdate,
@@ -344,8 +188,8 @@ export default function Invoice() {
           background: "white",
           position: "sticky",
           top: "0",
-          zIndex: "1000", // Ensures it stays above other elements
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Optional: Adds shadow for visibility
+          zIndex: "1000",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
         }}
       >
         <div
@@ -362,7 +206,6 @@ export default function Invoice() {
           Create New Invoice
         </div>
 
-        {/* Navigation Headers */}
         <div style={{ display: "flex", flex: 1, gap: "20px", paddingLeft: "70px" }}>
           {["Vendor Details", "Invoice Details", "Comments"].map((section) => (
             <div
@@ -624,14 +467,8 @@ export default function Invoice() {
                           <Select
                             options={invoiceNumberOptions}
                             placeholder="Select Vendor"
-                            // value={selectedInvoiceNumber}
-                            // onChange={(e) => handleOptions(e, 'invoicenumber', setFieldValue)}
-
                             value={values.invoiceNumber}
-
                             onChange={(selected) => handleDropdownChange(selected, setFieldValue, "invoiceNumber")}
-
-
                             styles={{
                               placeholder: (base) => ({
                                 ...base,
@@ -742,7 +579,6 @@ export default function Invoice() {
                                 height: "100%",
                                 backgroundColor: "white"
                               }}
-                            // onChange={(e) => handleinput(e, 'totalamount', setFieldValue)}
                             />
 
                             <span style={{
@@ -765,14 +601,8 @@ export default function Invoice() {
                           <Select
                             options={paymentTermsOptions}
                             placeholder="Select"
-                            // value={selectedPaymentTerms}
-                            // onChange={(e) => handleOptions(e, 'paymentterms', setFieldValue)}
-
                             value={values.paymentTerms}
-
                             onChange={(selected) => handleDropdownChange(selected, setFieldValue, "paymentTerms")}
-
-
                             styles={{
                               placeholder: (base) => ({
                                 ...base,
@@ -834,16 +664,10 @@ export default function Invoice() {
                               showPopperArrow={true}
                               popperPlacement={"bottom-end"}
                               icon={<LuCalendar1 size={25} color="grey" style={{ marginTop: '2px' }} />}
-                              // selected={invoiceDueDate}
-                              // onChange={(date) => handleDates(date, 'invoiceduedate', setFieldValue)}
-
                               selected={values.invoiceDueDate}
                               onChange={(date) => handleFieldChange(date, setFieldValue, 'invoiceDueDate')}
-
-
                               placeholderText="Select Date"
                               dateFormat="MM/dd/yyyy"
-
                             />
                           </div>
                           <ErrorMessage name="invoiceDueDate" component="div" style={{ color: "red", fontSize: "12px" }} />
@@ -858,18 +682,10 @@ export default function Invoice() {
                             <DatePicker
                               showIcon={true}
                               icon={<LuCalendar1 size={25} color="grey" style={{ marginTop: '2px' }} />}
-                              // selected={glPostDate}
-                              // onChange={(date) => handleDates(date, 'glpostdate', setFieldValue)}
-
                               selected={values.glPostDate}
                               onChange={(date) => handleFieldChange(date, setFieldValue, 'glPostDate')}
-
-
-
                               placeholderText="Select Date"
                               dateFormat="MM/dd/yyyy"
-                            // showPopperArrow={true}
-
                             />
                           </div>
                           <ErrorMessage name="glPostDate" component="div" style={{ color: "red", fontSize: "12px" }} />
@@ -960,14 +776,8 @@ export default function Invoice() {
                           <Select
                             options={departmentOptions}
                             placeholder="Select Department"
-                            // value={selectedDepartment}
-                            // onChange={(e) => handleOptions(e, 'department', setFieldValue)}
-
                             value={values.department}
-
                             onChange={(selected) => handleDropdownChange(selected, setFieldValue, "department")}
-
-
                             styles={{
                               placeholder: (base) => ({
                                 ...base,
@@ -1027,15 +837,8 @@ export default function Invoice() {
                           <Select
                             options={accountOptions}
                             placeholder="Select Account"
-                            // value={selectedAccount}
-                            // onChange={(e) => handleOptions(e, 'account', setFieldValue)}
-
                             value={values.account}
-
                             onChange={(selected) => handleDropdownChange(selected, setFieldValue, "account")}
-
-
-
                             styles={{
                               placeholder: (base) => ({
                                 ...base,
@@ -1192,11 +995,11 @@ export default function Invoice() {
                     >
                       <input
                         style={{
-                          flex: 1, // Makes input take full available space
+                          flex: 1,
                           border: "none",
                           outline: "none",
                           fontSize: "14px",
-                          paddingRight: "10px", // Leaves space between text and icon
+                          paddingRight: "10px",
                         }}
                         placeholder="Add a comment and use @name to tag someone"
                         value={values.comments}
@@ -1221,8 +1024,8 @@ export default function Invoice() {
                       position: "sticky",
                       gap: '15px',
                       top: "0",
-                      zIndex: "1000", // Ensures it stays above other elements
-                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Optional: Adds shadow for visibility
+                      zIndex: "1000",
+                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <button style={{ width: '30%', border: '2px solid grey', padding: '9px', borderRadius: '5px', background: 'transparent' }}>Save as Draft</button>
