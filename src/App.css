@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -32,7 +33,35 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  padding: 9px;
+  border: 2px solid grey !important;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: white;
+  padding-left: 30px;
+}
+
+.react-datepicker__input-container input:focus {
+  border-color: grey !important;
+  box-shadow: none !important;
+}
+
+
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container,
+.react-datepicker__view-calendar-icon {
+  display: flex;
+  width: 100%;
 }
