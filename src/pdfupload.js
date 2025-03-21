@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { LiaUploadSolid } from "react-icons/lia";
 import invoiceLogo from './invoice-logo.png';
 
@@ -8,12 +8,12 @@ export default function PdfUpload(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]); // Store the selected file
+    setSelectedFile(event.target.files[0]); 
     props.handleSelectedFile(event.target.files[0])
   };
 
   const handleUploadClick = () => {
-    document.getElementById("fileInput").click(); // Trigger file selection
+    document.getElementById("fileInput").click(); 
   };
 
 

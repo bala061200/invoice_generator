@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { LiaUploadSolid } from "react-icons/lia";
 import { BiBuildings } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { LiaCommentSolid } from "react-icons/lia";
@@ -12,7 +11,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { LuCalendar1 } from "react-icons/lu";
 import PdfUpload from "./pdfupload";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage, } from "formik";
+import { Formik, Form, ErrorMessage, } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Invoice() {
